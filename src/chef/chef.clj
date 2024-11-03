@@ -1,12 +1,10 @@
 (ns chef.chef
-  (:gen-class))
-
-(defn greet
-  "Callable entry point to the application."
-  [data]
-  (println (str "Hello, " (or (:name data) "World") "!")))
+  (:gen-class)
+  (:require [chef.recipe :as cr]))
 
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (greet {:name (first args)}))
+  (-> (first args)
+      cr/load-recipe
+      cr/run-recipe))

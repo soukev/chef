@@ -1,0 +1,38 @@
+[
+ {
+  :desc "Install packages from standard package manager."
+  :command "pamac install --no-confirm"
+  :packages
+  ["hyprland"
+   "hyprlock"
+   "hypridle"
+   "kitty"
+   "nwg-displays"
+   "nwg-look"
+   "swww"
+   "waybar"
+   "swaync"
+   "pulsemixer"
+   ]
+  }
+ {
+  :desc "Install packages from aur."
+  :command "pamac install --no-confirm"
+  :packages
+  ["waypaper", "pwvucontrol"]
+  }
+ {
+  :desc "Install hyprpm plugins."
+  :command "hyprpm add"
+  :packages
+  ["https://github.com/outfoxxed/hy3"]
+  :run-command-for-each-package true
+  }
+ {
+  :desc "Enable hyprpm plugins."
+  :command "hyprpm enable"
+  :packages
+  ["hy3"]
+  :run-command-for-each-package true
+  }
+ ]
