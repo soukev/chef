@@ -22,13 +22,6 @@
 
 (defn run-command! [command]
     (try
-        ;; (let [pb (doto (java.lang.ProcessBuilder. command)
-        ;;             (.redirectInput java.lang.ProcessBuilder$Redirect/INHERIT)
-        ;;             (.redirectOutput java.lang.ProcessBuilder$Redirect/INHERIT)
-        ;;             (.redirectError java.lang.ProcessBuilder$Redirect/INHERIT))
-        ;;     ;; Start and wait for the process to complete
-        ;;         process (.start pb)]
-        ;;     (.waitFor process))
       (let [process (-> (apply proc/start
                             {:in :inherit
                              :out :inherit

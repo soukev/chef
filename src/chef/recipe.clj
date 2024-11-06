@@ -2,14 +2,18 @@
   "Functionality for parsing recipes."
   (:require [clojure.java.io :as io]
             [clojure.edn :as edn]
-            [chef.executor :as cr]))
+            [chef.executor :as cr]
+            [chef.recipe.spec :as spec]))
 
 (defn load-recipe
   "Loads recipe from given file path."
   [file-path]
   (try
     (with-open [r (io/reader file-path)]
-      (edn/read (java.io.PushbackReader. r)))
+      (let [recipe (edn/read (java.io.PushbackReader. r))]
+        (when (not (spec/validate recipe))
+          (throw (ex-info "Invalid recipe." {:cause (spec/explain recipe)})))
+        recipe))
     (catch java.io.IOException e
       (throw (Exception. (format "Couldn't open '%s': %s\n" file-path (.getMessage e)))))
     (catch RuntimeException e
@@ -17,13 +21,25 @@
 
 (defn run-recipe-step
   [step]
+  (when (:desc step)
+    (println (:desc step)))
   (let [run #(cr/run-command! (cr/command (:command step) %))]
     (if (:run-command-for-each-package step)
-      (doseq [package (:packages step)]
+      (doseq [package (:arguments step)]
         (run package))
-      (run (:packages step)))))
+      (run (:arguments step)))))
 
 (defn run-recipe
   [recipe]
-  (doseq [step recipe]
-    (run-recipe-step step)))
+  (let [steps (:steps recipe)
+        name (:name recipe)
+        version (:version recipe)]
+    (when name
+      (println name))
+    (when version
+      (println version))
+    (when (or name version)
+      (println "------------"))
+    (println "Starting to run steps...")
+    (doseq [step steps]
+      (run-recipe-step step))))

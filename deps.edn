@@ -3,9 +3,6 @@
         com.github.clj-easy/graal-build-time {:mvn/version "1.0.5"}}
  :aliases
  {:run-m {:main-opts ["-m" "chef.chef"]}
-  :run-x {:ns-default chef.chef
-          :exec-fn greet
-          :exec-args {:name "Clojure"}}
   :build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.4"}}
           :ns-default build}
   :test {:extra-paths ["test"]

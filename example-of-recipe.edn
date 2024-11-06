@@ -1,8 +1,11 @@
-[
+{
+ :name "Hyprland environment preparation"
+ :version "0.1.0"
+ :steps [
  {
   :desc "Install packages from standard package manager."
   :command "pamac install --no-confirm"
-  :packages
+  :arguments
   ["hyprland"
    "hyprlock"
    "hypridle"
@@ -18,21 +21,22 @@
  {
   :desc "Install packages from aur."
   :command "pamac install --no-confirm"
-  :packages
+  :arguments
   ["waypaper", "pwvucontrol"]
   }
  {
   :desc "Install hyprpm plugins."
   :command "hyprpm add"
-  :packages
+  :arguments
   ["https://github.com/outfoxxed/hy3"]
   :run-command-for-each-package true
   }
  {
   :desc "Enable hyprpm plugins."
   :command "hyprpm enable"
-  :packages
+  :arguments
   ["hy3"]
   :run-command-for-each-package true
   }
  ]
+}
