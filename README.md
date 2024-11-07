@@ -1,6 +1,6 @@
 # chef
 
-Chef only follows the steps that it takes from recipe.
+Chef reads recipe and in each step executes task.
 
 I use it to rebuild my system environments. (See example-of-recipe.edn)
 
@@ -17,8 +17,13 @@ I might evolve this project to something more interesting over the time. I'm thi
 
 ## Usage
 
-    $ chef recipe.edn
+```
+chef [options] recipe.edn
 
+Options:
+  -v, --verbose
+  -h, --help
+```
 
 ## Dev usage
 
